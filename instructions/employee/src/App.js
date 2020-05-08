@@ -1,5 +1,6 @@
 import React from 'react';
 import Employee from "./components/employee"
+import Search from "./components/search"
 
 import './App.css';
 class App extends React.Component {
@@ -24,6 +25,9 @@ class App extends React.Component {
       })
   }
 
+  handleChange(e) {
+    console.log(e.target.value)
+  }
 
   render() {
     var { items, loading } = this.state;
@@ -34,7 +38,11 @@ class App extends React.Component {
     } else {
 
       return (
-        <div>
+        <div className="container">
+          <div class="jumbotron jumbotron-fluid">
+              <h1 class="display-4">Employee Management</h1>
+          </div>
+          <Search handleChange={this.handleChange} />
           <Employee items={items} />
           {/* {items.map( item => (
           <img src={item.picture.large} alt={item.name.first} />

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Table } from 'reactstrap';
 
+
 const Example = (props) => {
   return (
     <Table>
       <thead>
         <tr>
           <th>#</th>
-          <th>Pictures</th>
+          <th> </th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
