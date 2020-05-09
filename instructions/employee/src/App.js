@@ -7,7 +7,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      query: "",
       items: [],
+      filteredItems: [],
       loading: false
 
     };
@@ -19,18 +21,36 @@ class App extends React.Component {
       .then((response) => {
         console.log(response.results)
         this.setState({
+          filteredItems: response.results,
           items: response.results,
           loading: true
         })
       })
   }
+  handleChange = (e) => {
+    const query = e.target.value.toLowerCase();
 
-  handleChange(e) {
-    console.log(e.target.value)
+    console.log(query);
+    const filteritems = this.state.items.filter(item => {
+      return item.name.first.toLowerCase().indexOf(query) !== -1;
+
+
+    })
+
+    this.setState({filteredItems: filteritems});
+
   }
 
+
+
   render() {
-    var { items, loading } = this.state;
+    var { filteredItems, loading } = this.state;
+
+    // items = this.props.items.filter((
+    //   item => {
+    //     return item.name.indexOf(this.state.search) !== -1;
+    //   }
+    // ));
 
     if (!loading) {
       return <div>Loading....</div>
@@ -39,11 +59,10 @@ class App extends React.Component {
 
       return (
         <div className="container">
-          <div class="jumbotron jumbotron-fluid">
-              <h1 class="display-4">Employee Management</h1>
-          </div>
+          
+
           <Search handleChange={this.handleChange} />
-          <Employee items={items} />
+          <Employee items={filteredItems} />
           {/* {items.map( item => (
           <img src={item.picture.large} alt={item.name.first} />
         ))} */}
